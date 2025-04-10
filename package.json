@@ -1,0 +1,21 @@
+{
+  "name": "soapconverter",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@azure/identity": "^4.8.0",
+    "@microsoft/microsoft-graph-client": "^3.0.7",
+    "axios": "^1.8.4",
+    "express": "^5.1.0",
+    "soap": "^1.1.10",
+    "xml2js": "^0.6.2"
+  }
+}
