@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login AJAX Page</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <h1>Login AJAX Example</h1>
+  <button id="loginBtn">Login</button>
+
+  <pre id="responseOutput"></pre>
+
+  <script>
+    $(document).ready(function () {
+      $('#loginBtn').click(function () {
+        $.ajax({
+          url: 'http://79.72.36.231:3000/api/v1/moci/login',
+          type: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify({
+            "LoginID": "mohd2172",
+            "Password": "mohd@2172",
+            "Lang": "en"
+          }),
+          success: function (response) {
+            $('#responseOutput').text(JSON.stringify(response, null, 2));
+          },
+          error: function (xhr, status, error) {
+            $('#responseOutput').text(`Error: ${status}\n${xhr.responseText}`);
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

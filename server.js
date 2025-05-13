@@ -2,15 +2,22 @@ const express = require('express');
 const axios = require('axios');
 const xml2js = require('xml2js');
 const soap = require('soap');
+const cors = require('cors');
 const { Client } = require('@microsoft/microsoft-graph-client');
 const { ClientSecretCredential } = require('@azure/identity');
 
+// load .env
+require('dotenv').config();
+
 const app = express();
-const port = 3000;
+const port = process.env.PORT;
 const prefix = '/api/v1';
 
 // enable JSON format
 app.use(express.json());
+
+// enable CORS
+app.use(cors());
 
 /**
  * Fetch civil information from ROP 
@@ -29,7 +36,7 @@ app.post(prefix + '/rop/fetch-civil-info', async (req, res) => {
     }
 
     const args = {
-      ServicePassword: 
+      ServicePassword: process.env.ROP_SERVICE_PASSWORD,
       CivilID: data.civilId,
       ExpiryDate: data.expiryDate
     };
@@ -45,14 +52,7 @@ app.post(prefix + '/rop/fetch-civil-info', async (req, res) => {
           return res.status(500).json({ error: 'Error : ' + err });
         }
 
-        // convert XML to JSON
-        xml2js.parseString(result, { explicitArray: false, ignoreAttrs: true }, (err, result) => {
-          if (err) {
-            return res.status(500).json({ error: 'Error : ' + err });
-          }
-
-          res.json(result);
-        });
+        return res.send(result.GetByCivilIDFromROPResult);
       });
     });
   } catch (error) {
@@ -72,17 +72,18 @@ app.post(prefix + '/send-sms', async (req, res) => {
       return res.status(400).json({ error: 'Invalid Message' });
     }
 
-    if (data.mobile === undefined || !data.mobile) {
-      return res.status(400).json({ error: 'Invalid Mobile Number' });
+    if (data.mobiles === undefined || !data.mobiles) {
+      return res.status(400).json({ error: 'Invalid Mobile Numbers' });
     }
 
     const args = {
-      
+      UserName: process.env.SMS_USERNAME,
+      Password: process.env.SMS_PASSWORD,
       Message: data.message,
       Priority: '2',
       Sender: 'CPA',
       SourceRef: 'value2',
-      MSISDNs: data.mobile,
+      MSISDNs: data.mobiles,
     };
 
     soap.createClient(wsdlUrl, (error, client) => {
@@ -111,8 +112,8 @@ app.post(prefix + '/send-email', async (req, res) => {
     const data = req.body;
     const sender = 'no.reply@cpa.gov.om';
 
-    if (data.receiver === undefined || !data.receiver) {
-      return res.status(400).json({ error: 'Invalid receiver\'s email address' });
+    if (data.recipients === undefined || !data.recipients) {
+      return res.status(400).json({ error: 'Invalid recipients email addresses' });
     }
 
     if (data.subject === undefined || !data.subject) {
@@ -126,30 +127,183 @@ app.post(prefix + '/send-email', async (req, res) => {
     const message = {
       subject: data.subject,
       body: {
-        contentType: 'Text',
+        contentType: 'HTML',
         content: data.content,
       },
-      toRecipients: [
-        {
-          emailAddress: {
-            address: data.receiver,
-          },
+      toRecipients: data.recipients.map(email => ({
+        emailAddress: {
+          address: email,
         },
-      ],
+      })),
+      ccRecipients: data.cc.map(email => ({
+        emailAddress: {
+          address: email,
+        },
+      })),
+      bccRecipients: data.bcc.map(email => ({
+        emailAddress: {
+          address: email,
+        },
+      })),
+      attachments: data.attachments.map(file => ({
+        '@odata.type': '#microsoft.graph.fileAttachment',
+        name: file.name,
+        contentBytes: file.contentBytes,
+      })),
     };
 
     // Get Graph client and send email
+    const tenantId = process.env.EMAIL_TENANT_ID; 
+    const clientId = process.env.EMAIL_CLIENT_ID; 
+    const clientSecret = process.env.EMAIL_CLIENT_SECRET;
+
     const credential = new ClientSecretCredential(
-      
+      tenantId, 
+      clientId, 
+      clientSecret 
     );
 
     const client = Client.initWithMiddleware({
-      authProvider: credential,
+      authProvider: {
+        getAccessToken: async () => {
+          const tokenResponse = await credential.getToken("https://graph.microsoft.com/.default");
+          return tokenResponse.token;
+        },
+      },
     });
-
+    
     await client.api('/users/' + sender + '/sendMail').post({
       message: message,
     });
+
+    return res.json({ status: 'Email was sent Successfully !' });
+  } catch (error) {
+    return res.status(500).json({ error: 'Error : ' + error });
+  }
+});
+
+/**
+ * MOCI : login
+ */
+app.post(prefix + '/moci/login', async (req, res) => {
+  try {
+    const serviceUrl = 'https://maidan.cpa.gov.om/cpa-web-api-pro/InspectionMobile/Login';
+    
+    const response = await axios.post(serviceUrl, req.body, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    return res.send(response.data);
+  } catch (error) {
+    return res.status(500).json({ error: 'Error : ' + error });
+  }
+});
+
+/**
+ * MOCI : search company
+ */
+app.get(prefix + '/moci/search-company/:cr_number', async (req, res) => {
+  try {
+    const serviceUrl = 'https://maidan.cpa.gov.om/cpa-web-api-pro/InspectionMobile/SearchCompany?CRNumber=' + req.query.cr_number;
+    const authHeader = req.headers['authorization'];
+    
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({ error: 'Missing or invalid Authorization header' });
+    }
+
+    const bearerToken = authHeader.split(' ')[1]; 
+
+    const response = await axios.get(serviceUrl, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${bearerToken}`
+      }
+    });
+
+    return res.send(response.data);
+  } catch (error) {
+    return res.status(500).json({ error: 'Error : ' + error });
+  }
+});
+
+/**
+ * MOCI : get company data
+ */
+app.get(prefix + '/moci/get-company-data/:cr_number', async (req, res) => {
+  try {
+    const serviceUrl = 'https://maidan.cpa.gov.om/cpa-web-api-pro/InspectionMobile/getCompanyData?CRNumber=' + req.query.cr_number;
+    const authHeader = req.headers['authorization'];
+    
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({ error: 'Missing or invalid Authorization header' });
+    }
+
+    const bearerToken = authHeader.split(' ')[1]; 
+
+    const response = await axios.get(serviceUrl, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${bearerToken}`
+      }
+    });
+
+    return res.send(response.data);
+  } catch (error) {
+    return res.status(500).json({ error: 'Error : ' + error });
+  }
+});
+
+/**
+ * MOCI : get declared activities
+ */
+app.get(prefix + '/moci/get-declared-activities/:cr_number', async (req, res) => {
+  try {
+    const serviceUrl = 'https://maidan.cpa.gov.om/cpa-web-api-pro/InspectionMobile/getDeclaredActivities?CRNumber=' + req.query.cr_number;
+    const authHeader = req.headers['authorization'];
+    
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({ error: 'Missing or invalid Authorization header' });
+    }
+
+    const bearerToken = authHeader.split(' ')[1]; 
+
+    const response = await axios.get(serviceUrl, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${bearerToken}`
+      }
+    });
+
+    return res.send(response.data);
+  } catch (error) {
+    return res.status(500).json({ error: 'Error : ' + error });
+  }
+});
+
+/**
+ * MOCI : get places of activities
+ */
+app.get(prefix + '/moci/get-places-of-activities/:cr_number', async (req, res) => {
+  try {
+    const serviceUrl = 'https://maidan.cpa.gov.om/cpa-web-api-pro/InspectionMobile/getPlacesOfActivities?CRNumber=' + req.query.cr_number;
+    const authHeader = req.headers['authorization'];
+    
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({ error: 'Missing or invalid Authorization header' });
+    }
+
+    const bearerToken = authHeader.split(' ')[1]; 
+
+    const response = await axios.get(serviceUrl, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${bearerToken}`
+      }
+    });
+
+    return res.send(response.data);
   } catch (error) {
     return res.status(500).json({ error: 'Error : ' + error });
   }

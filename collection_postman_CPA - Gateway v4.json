@@ -1,0 +1,325 @@
+{
+    "info": {
+        "_postman_id": "ad9c2703-cc2e-4ff1-a369-a8eeab49beb3",
+        "name": "CPA - Gateway",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": ""
+    },
+    "item": [
+        {
+            "name": "MOCI",
+            "item": [
+                {
+                    "name": "Login",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://79.72.36.231:3000/api/v1/moci/login",
+                            "path": [
+                                "api",
+                                "v1",
+                                "moci",
+                                "login"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "79",
+                                "72",
+                                "36",
+                                "231"
+                            ],
+                            "port": "3000"
+                        },
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n    \"LoginID\": \"mohd2172\",\n    \"Password\": \"mohd@2172\",\n    \"Lang\": \"en\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Search Company",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://79.72.36.231:3000/api/v1/moci/search-company/1033022",
+                            "path": [
+                                "api",
+                                "v1",
+                                "moci",
+                                "search-company",
+                                "1033022"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "79",
+                                "72",
+                                "36",
+                                "231"
+                            ],
+                            "port": "3000"
+                        },
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNDczIiwianRpIjoiODQ4NmZlMTMtYzJhYy00ZWE5LTgwYmMtMDhkZjY1MzhkOTAwIiwiYXVkIjoiY3BhLm9tIiwiaXNzIjoiY3BhLm9tIiwiZXhwIjoxNzQ0Nzc0NDE0fQ.SW5ZVCym9dW-KzJ-7JJUI2H2fpkIFkYqybCzf-2w7iU",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Company Data",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://79.72.36.231:3000/api/v1/moci/get-company-data/1033022",
+                            "path": [
+                                "api",
+                                "v1",
+                                "moci",
+                                "get-company-data",
+                                "1033022"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "79",
+                                "72",
+                                "36",
+                                "231"
+                            ],
+                            "port": "3000"
+                        },
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNDczIiwianRpIjoiODQ4NmZlMTMtYzJhYy00ZWE5LTgwYmMtMDhkZjY1MzhkOTAwIiwiYXVkIjoiY3BhLm9tIiwiaXNzIjoiY3BhLm9tIiwiZXhwIjoxNzQ0Nzc0NDE0fQ.SW5ZVCym9dW-KzJ-7JJUI2H2fpkIFkYqybCzf-2w7iU",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Declared Activities",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://79.72.36.231:3000/api/v1/moci/get-declared-activities/1033022",
+                            "path": [
+                                "api",
+                                "v1",
+                                "moci",
+                                "get-declared-activities",
+                                "1033022"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "79",
+                                "72",
+                                "36",
+                                "231"
+                            ],
+                            "port": "3000"
+                        },
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNDczIiwianRpIjoiODQ4NmZlMTMtYzJhYy00ZWE5LTgwYmMtMDhkZjY1MzhkOTAwIiwiYXVkIjoiY3BhLm9tIiwiaXNzIjoiY3BhLm9tIiwiZXhwIjoxNzQ0Nzc0NDE0fQ.SW5ZVCym9dW-KzJ-7JJUI2H2fpkIFkYqybCzf-2w7iU",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Places of Activities",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://79.72.36.231:3000/api/v1/moci/get-places-of-activities/1033022",
+                            "path": [
+                                "api",
+                                "v1",
+                                "moci",
+                                "get-places-of-activities",
+                                "1033022"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "79",
+                                "72",
+                                "36",
+                                "231"
+                            ],
+                            "port": "3000"
+                        },
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNDczIiwianRpIjoiODQ4NmZlMTMtYzJhYy00ZWE5LTgwYmMtMDhkZjY1MzhkOTAwIiwiYXVkIjoiY3BhLm9tIiwiaXNzIjoiY3BhLm9tIiwiZXhwIjoxNzQ0Nzc0NDE0fQ.SW5ZVCym9dW-KzJ-7JJUI2H2fpkIFkYqybCzf-2w7iU",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "ROP - Civil Info",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "http://79.72.36.231:3000/api/v1/rop/fetch-civil-info",
+                    "path": [
+                        "api",
+                        "v1",
+                        "rop",
+                        "fetch-civil-info"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "79",
+                        "72",
+                        "36",
+                        "231"
+                    ],
+                    "port": "3000"
+                },
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"civilId\": \"12073293\",\n  \"expiryDate\": \"2029-05-05\"\n}"
+                }
+            }
+        },
+        {
+            "name": "Send SMS",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "http://79.72.36.231:3000/api/v1/send-sms",
+                    "path": [
+                        "api",
+                        "v1",
+                        "send-sms"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "79",
+                        "72",
+                        "36",
+                        "231"
+                    ],
+                    "port": "3000"
+                },
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"mobiles\": \"96877471066,971507021638\",\n  \"message\": \"CPA - Test SMS\"\n}"
+                }
+            }
+        },
+        {
+            "name": "Send Email",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "http://79.72.36.231:3000/api/v1/send-email",
+                    "path": [
+                        "api",
+                        "v1",
+                        "send-email"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "79",
+                        "72",
+                        "36",
+                        "231"
+                    ],
+                    "port": "3000"
+                },
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"recipients\": [\n    \"mohamed.youssef@gcg.ae\"\n  ],\n  \"cc\": [\n    \"mohamed.youssef@gcg.ae\"\n  ],\n  \"bcc\": [\n    \"mohamed.youssef@gcg.ae\"\n  ],\n  \"attachments\": [\n    {\n      \"name\": \"test.pdf\",\n      \"bytes\": \"JVBERi0xLjMKMyAwIG9iago8PC9UeXBlIC9QYWdlCi9QYXJlbnQgMSAwIFIKL1Jlc291cmNlcyAyIDAgUgovQ29udGVudHMgNCAwIFI+PgplbmRvYmoKNCAwIG9iago8PC9GaWx0ZXIgL0ZsYXRlRGVjb2RlIC9MZW5ndGggNzg+PgpzdHJlYW0KeJwzUvDiMtAzNVco53IKUdB3M1QwNNIzMFAISVNwDQEJGRvqGVoqmFua6pmbK4SkKGiEZGQWKwBRokJJanGJQoCLm6ZCSBZINQCAYhIICmVuZHN0cmVh\"\n    }\n  ],\n  \"subject\": \"CPA - Test Email\",\n  \"content\": \"<h1>CPA - Test Email Content</h1>\"\n}"
+                }
+            }
+        }
+    ]
+}
