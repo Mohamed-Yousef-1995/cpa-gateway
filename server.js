@@ -108,6 +108,7 @@ app.post(prefix + '/send-sms', async (req, res) => {
  * Send email using Microsoft Azure Graph
  */
 app.post(prefix + '/send-email', async (req, res) => {
+
   try {
     const data = req.body;
     const sender = 'no.reply@cpa.gov.om';
@@ -206,7 +207,7 @@ app.post(prefix + '/moci/login', async (req, res) => {
  */
 app.get(prefix + '/moci/search-company/:cr_number', async (req, res) => {
   try {
-    const serviceUrl = 'https://maidan.cpa.gov.om/cpa-web-api-pro/InspectionMobile/SearchCompany?CRNumber=' + req.query.cr_number;
+    const serviceUrl = 'https://maidan.cpa.gov.om/cpa-web-api-pro/InspectionMobile/SearchCompany?CRNumber=' + req.params.cr_number;
     const authHeader = req.headers['authorization'];
     
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -233,7 +234,7 @@ app.get(prefix + '/moci/search-company/:cr_number', async (req, res) => {
  */
 app.get(prefix + '/moci/get-company-data/:cr_number', async (req, res) => {
   try {
-    const serviceUrl = 'https://maidan.cpa.gov.om/cpa-web-api-pro/InspectionMobile/getCompanyData?CRNumber=' + req.query.cr_number;
+    const serviceUrl = 'https://maidan.cpa.gov.om/cpa-web-api-pro/InspectionMobile/getCompanyData?CRNumber=' + req.params.cr_number;
     const authHeader = req.headers['authorization'];
     
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -260,7 +261,7 @@ app.get(prefix + '/moci/get-company-data/:cr_number', async (req, res) => {
  */
 app.get(prefix + '/moci/get-declared-activities/:cr_number', async (req, res) => {
   try {
-    const serviceUrl = 'https://maidan.cpa.gov.om/cpa-web-api-pro/InspectionMobile/getDeclaredActivities?CRNumber=' + req.query.cr_number;
+    const serviceUrl = 'https://maidan.cpa.gov.om/cpa-web-api-pro/InspectionMobile/getDeclaredActivities?CRNumber=' + req.params.cr_number;
     const authHeader = req.headers['authorization'];
     
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -287,7 +288,7 @@ app.get(prefix + '/moci/get-declared-activities/:cr_number', async (req, res) =>
  */
 app.get(prefix + '/moci/get-places-of-activities/:cr_number', async (req, res) => {
   try {
-    const serviceUrl = 'https://maidan.cpa.gov.om/cpa-web-api-pro/InspectionMobile/getPlacesOfActivities?CRNumber=' + req.query.cr_number;
+    const serviceUrl = 'https://maidan.cpa.gov.om/cpa-web-api-pro/InspectionMobile/getPlacesOfActivities?CRNumber=' + req.params.cr_number;
     const authHeader = req.headers['authorization'];
     
     if (!authHeader || !authHeader.startsWith('Bearer ')) {

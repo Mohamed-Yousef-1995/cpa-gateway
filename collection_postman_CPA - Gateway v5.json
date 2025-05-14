@@ -1,6 +1,6 @@
 {
     "info": {
-        "_postman_id": "ad9c2703-cc2e-4ff1-a369-a8eeab49beb3",
+        "_postman_id": "fa64d676-eeea-4e33-a617-a21eb6a91eff",
         "name": "CPA - Gateway",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
         "description": ""
@@ -14,19 +14,19 @@
                     "request": {
                         "method": "POST",
                         "url": {
-                            "raw": "http://79.72.36.231:3000/api/v1/moci/login",
+                            "raw": "https://uat.cpa.gov.om:3000/api/v1/moci/login",
                             "path": [
                                 "api",
                                 "v1",
                                 "moci",
                                 "login"
                             ],
-                            "protocol": "http",
+                            "protocol": "https",
                             "host": [
-                                "79",
-                                "72",
-                                "36",
-                                "231"
+                                "uat",
+                                "cpa",
+                                "gov",
+                                "om"
                             ],
                             "port": "3000"
                         },
@@ -52,7 +52,7 @@
                     "request": {
                         "method": "GET",
                         "url": {
-                            "raw": "http://79.72.36.231:3000/api/v1/moci/search-company/1033022",
+                            "raw": "https://uat.cpa.gov.om:3000/api/v1/moci/search-company/1033022",
                             "path": [
                                 "api",
                                 "v1",
@@ -60,12 +60,12 @@
                                 "search-company",
                                 "1033022"
                             ],
-                            "protocol": "http",
+                            "protocol": "https",
                             "host": [
-                                "79",
-                                "72",
-                                "36",
-                                "231"
+                                "uat",
+                                "cpa",
+                                "gov",
+                                "om"
                             ],
                             "port": "3000"
                         },
@@ -80,7 +80,7 @@
                             "bearer": [
                                 {
                                     "key": "token",
-                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNDczIiwianRpIjoiODQ4NmZlMTMtYzJhYy00ZWE5LTgwYmMtMDhkZjY1MzhkOTAwIiwiYXVkIjoiY3BhLm9tIiwiaXNzIjoiY3BhLm9tIiwiZXhwIjoxNzQ0Nzc0NDE0fQ.SW5ZVCym9dW-KzJ-7JJUI2H2fpkIFkYqybCzf-2w7iU",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNDczIiwianRpIjoiN2NhNGQ1MjctMWI1ZS00YzU0LWE1MDMtZTY5M2Y4OTAzNjg3IiwiYXVkIjoiY3BhLm9tIiwiaXNzIjoiY3BhLm9tIiwiZXhwIjoxNzQ3Mjg0MDg2fQ.UDbqveFyomqQTcFG9m4ci-KQ-kEIaUyxhBTps1B5bPU",
                                     "type": "string"
                                 }
                             ]
@@ -92,7 +92,7 @@
                     "request": {
                         "method": "GET",
                         "url": {
-                            "raw": "http://79.72.36.231:3000/api/v1/moci/get-company-data/1033022",
+                            "raw": "https://uat.cpa.gov.om:3000/api/v1/moci/get-company-data/1033022",
                             "path": [
                                 "api",
                                 "v1",
@@ -100,12 +100,12 @@
                                 "get-company-data",
                                 "1033022"
                             ],
-                            "protocol": "http",
+                            "protocol": "https",
                             "host": [
-                                "79",
-                                "72",
-                                "36",
-                                "231"
+                                "uat",
+                                "cpa",
+                                "gov",
+                                "om"
                             ],
                             "port": "3000"
                         },
@@ -120,7 +120,7 @@
                             "bearer": [
                                 {
                                     "key": "token",
-                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNDczIiwianRpIjoiODQ4NmZlMTMtYzJhYy00ZWE5LTgwYmMtMDhkZjY1MzhkOTAwIiwiYXVkIjoiY3BhLm9tIiwiaXNzIjoiY3BhLm9tIiwiZXhwIjoxNzQ0Nzc0NDE0fQ.SW5ZVCym9dW-KzJ-7JJUI2H2fpkIFkYqybCzf-2w7iU",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNDczIiwianRpIjoiZjhmNDQwMTktMDJhNi00YWI3LWIzMjgtMDU2MGY4ZjFkNjc2IiwiYXVkIjoiY3BhLm9tIiwiaXNzIjoiY3BhLm9tIiwiZXhwIjoxNzQ3MjgzODc5fQ.7Jz0G5IwAXutimFPASg2_OqT6YRyTSpXgVk7s-N8LdA",
                                     "type": "string"
                                 }
                             ]
@@ -132,7 +132,7 @@
                     "request": {
                         "method": "GET",
                         "url": {
-                            "raw": "http://79.72.36.231:3000/api/v1/moci/get-declared-activities/1033022",
+                            "raw": "https://uat.cpa.gov.om:3000/api/v1/moci/get-declared-activities/1033022",
                             "path": [
                                 "api",
                                 "v1",
@@ -140,12 +140,12 @@
                                 "get-declared-activities",
                                 "1033022"
                             ],
-                            "protocol": "http",
+                            "protocol": "https",
                             "host": [
-                                "79",
-                                "72",
-                                "36",
-                                "231"
+                                "uat",
+                                "cpa",
+                                "gov",
+                                "om"
                             ],
                             "port": "3000"
                         },
@@ -172,7 +172,7 @@
                     "request": {
                         "method": "GET",
                         "url": {
-                            "raw": "http://79.72.36.231:3000/api/v1/moci/get-places-of-activities/1033022",
+                            "raw": "https://uat.cpa.gov.om:3000/api/v1/moci/get-places-of-activities/1033022",
                             "path": [
                                 "api",
                                 "v1",
@@ -180,12 +180,12 @@
                                 "get-places-of-activities",
                                 "1033022"
                             ],
-                            "protocol": "http",
+                            "protocol": "https",
                             "host": [
-                                "79",
-                                "72",
-                                "36",
-                                "231"
+                                "uat",
+                                "cpa",
+                                "gov",
+                                "om"
                             ],
                             "port": "3000"
                         },
@@ -214,19 +214,19 @@
             "request": {
                 "method": "POST",
                 "url": {
-                    "raw": "http://79.72.36.231:3000/api/v1/rop/fetch-civil-info",
+                    "raw": "https://uat.cpa.gov.om:3000/api/v1/rop/fetch-civil-info",
                     "path": [
                         "api",
                         "v1",
                         "rop",
                         "fetch-civil-info"
                     ],
-                    "protocol": "http",
+                    "protocol": "https",
                     "host": [
-                        "79",
-                        "72",
-                        "36",
-                        "231"
+                        "uat",
+                        "cpa",
+                        "gov",
+                        "om"
                     ],
                     "port": "3000"
                 },
@@ -252,18 +252,18 @@
             "request": {
                 "method": "POST",
                 "url": {
-                    "raw": "http://79.72.36.231:3000/api/v1/send-sms",
+                    "raw": "https://uat.cpa.gov.om:3000/api/v1/send-sms",
                     "path": [
                         "api",
                         "v1",
                         "send-sms"
                     ],
-                    "protocol": "http",
+                    "protocol": "https",
                     "host": [
-                        "79",
-                        "72",
-                        "36",
-                        "231"
+                        "uat",
+                        "cpa",
+                        "gov",
+                        "om"
                     ],
                     "port": "3000"
                 },
@@ -289,18 +289,18 @@
             "request": {
                 "method": "POST",
                 "url": {
-                    "raw": "http://79.72.36.231:3000/api/v1/send-email",
+                    "raw": "https://uat.cpa.gov.om:3000/api/v1/send-email",
                     "path": [
                         "api",
                         "v1",
                         "send-email"
                     ],
-                    "protocol": "http",
+                    "protocol": "https",
                     "host": [
-                        "79",
-                        "72",
-                        "36",
-                        "231"
+                        "uat",
+                        "cpa",
+                        "gov",
+                        "om"
                     ],
                     "port": "3000"
                 },
